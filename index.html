@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FoodExpress - Order Online</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #fef9f4, #fff0e0);
+      margin: 0;
+      padding: 0;
+      animation: fadeIn 1s ease-in;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    header {
+      background: linear-gradient(to right, #ff8a65, #ff7043);
+      color: white;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      position: relative;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 36px;
+    }
+    header img.logo {
+      position: absolute;
+      top: 10px;
+      left: 20px;
+      height: 60px;
+      border-radius: 10px;
+    }
+    nav {
+      background-color: #ff8a65;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      padding: 10px 0;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #fff0e0;
+    }
+    .menu {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      padding: 30px;
+    }
+    .item {
+      background-color: #fffaf7;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 15px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    .item:hover {
+      transform: scale(1.05);
+    }
+    .item img {
+      width: 100%;
+      height: 150px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+    .item button {
+      margin-top: 10px;
+      background-color: #ff7043;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .item button:hover {
+      background-color: #f4511e;
+    }
+    .cart {
+      padding: 20px 30px;
+      background-color: #fff0e0;
+    }
+    .cart h2 {
+      margin-top: 0;
+    }
+    .cart-items {
+      list-style: none;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="https://cdn-icons-png.flaticon.com/512/3075/3075977.png" alt="FoodExpress Logo" class="logo">
+    <h1>FoodExpress</h1>
+    <p>Delicious Food, Delivered Fast</p>
+  </header>
+  <nav>
+    <a href="#menu">Menu</a>
+    <a href="#cart">Cart</a>
+    <a href="#about">About Us</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <section class="menu" id="menu">
+    <div class="item">
+      <img src="https://images.unsplash.com/photo-1594007654729-e6ba01c0f2af" alt="Pizza">
+      <h3>Pizza</h3>
+      <p>₹250</p>
+      <button onclick="addToCart('Pizza', 250)">Add to Cart</button>
+    </div>
+    <div class="item">
+      <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd" alt="Burger">
+      <h3>Burger</h3>
+      <p>₹120</p>
+      <button onclick="addToCart('Burger', 120)">Add to Cart</button>
+    </div>
+    <div class="item">
+      <img src="https://images.unsplash.com/photo-1627308595229-7830a5c91f9f" alt="Biryani">
+      <h3>Biryani</h3>
+      <p>₹180</p>
+      <button onclick="addToCart('Biryani', 180)">Add to Cart</button>
+    </div>
+    <div class="item">
+      <img src="https://images.unsplash.com/photo-1630384062540-36f875c6ef38" alt="Idli">
+      <h3>Idli & Sambar</h3>
+      <p>₹80</p>
+      <button onclick="addToCart('Idli & Sambar', 80)">Add to Cart</button>
+    </div>
+    <div class="item">
+      <img src="https://images.unsplash.com/photo-1668236549494-90dfdb94fcf1" alt="Dosa">
+      <h3>Masala Dosa</h3>
+      <p>₹90</p>
+      <button onclick="addToCart('Masala Dosa', 90)">Add to Cart</button>
+    </div>
+    <div class="item">
+      <img src="https://images.unsplash.com/photo-1603898072806-e3f3b49b70f8" alt="Samosa">
+      <h3>Samosa</h3>
+      <p>₹40</p>
+      <button onclick="addToCart('Samosa', 40)">Add to Cart</button>
+    </div>
+    <div class="item">
+      <img src="https://images.unsplash.com/photo-1596797038530-2c107229654b" alt="Pav Bhaji">
+      <h3>Pav Bhaji</h3>
+      <p>₹110</p>
+      <button onclick="addToCart('Pav Bhaji', 110)">Add to Cart</button>
+    </div>
+    <div class="item">
+      <img src="https://images.unsplash.com/photo-1657299172351-f2769c34d348" alt="Paneer">
+      <h3>Special Paneer Curry</h3>
+      <p>₹200</p>
+      <button onclick="addToCart('Special Paneer Curry', 200)">Add to Cart</button>
+    </div>
+  </section>
+  <section class="cart" id="cart">
+    <h2>Your Cart</h2>
+    <ul class="cart-items" id="cart-items"></ul>
+    <p><strong>Total: ₹<span id="total">0</span></strong></p>
+  </section>
+  <script>
+    let cart = [];
+
+    function addToCart(item, price) {
+      cart.push({ item, price });
+      updateCart();
+    }
+
+    function updateCart() {
+      const cartList = document.getElementById("cart-items");
+      const totalDisplay = document.getElementById("total");
+      cartList.innerHTML = "";
+      let total = 0;
+
+      cart.forEach((entry) => {
+        const li = document.createElement("li");
+        li.textContent = `${entry.item} - ₹${entry.price}`;
+        cartList.appendChild(li);
+        total += entry.price;
+      });
+
+      totalDisplay.textContent = total;
+    }
+  </script>
+</body>
+</html>
