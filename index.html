@@ -1,197 +1,147 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FoodExpress - Order Online</title>
+<!-- Title and Search Bar -->
+<h1 style="text-align: center; font-size: 36px; font-family: 'Poppins', sans-serif; margin-top: 20px; color: #ff7043;">Food Express</h1>
+<!-- Search Bar and Cart Navigation -->
+<div style="display: flex; justify-content: space-between; align-items: center; padding: 20px; background: #ff7043;">
+  <input type="text" id="searchBar" oninput="filterMenu()" placeholder="Search for food..." style="padding: 10px 15px; border-radius: 20px; border: none; width: 250px; font-size: 16px;">
+  <a href="#cart" style="text-decoration: none; color: white; font-weight: bold; background: #fff; color: #ff7043; padding: 10px 20px; border-radius: 25px;">Go to Cart</a>
+</div>
+
+<section class="menu" id="menu" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; padding: 40px;">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(to right, #fef9f4, #fff0e0);
-      margin: 0;
-      padding: 0;
-      animation: fadeIn 1s ease-in;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    header {
-      background: linear-gradient(to right, #ff8a65, #ff7043);
-      color: white;
-      padding: 20px;
-      text-align: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      position: relative;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 36px;
-    }
-    header img.logo {
-      position: absolute;
-      top: 10px;
-      left: 20px;
-      height: 60px;
-      border-radius: 10px;
-    }
-    nav {
-      background-color: #ff8a65;
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      padding: 10px 0;
-    }
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 16px;
-      transition: color 0.2s;
-    }
-    nav a:hover {
-      color: #fff0e0;
-    }
-    .menu {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      padding: 30px;
-    }
     .item {
-      background-color: #fffaf7;
+      background-color: #fffaf0;
       border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      padding: 15px;
-      text-align: center;
-      transition: transform 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
     }
     .item:hover {
-      transform: scale(1.05);
+      transform: scale(1.03);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
     }
     .item img {
       width: 100%;
-      height: 150px;
-      border-radius: 10px;
+      height: 170px;
       object-fit: cover;
     }
+    .item h3, .item p {
+      padding: 10px 15px;
+    }
+    .item .rating {
+      font-size: 14px;
+      color: #888;
+    }
     .item button {
-      margin-top: 10px;
+      margin: 15px;
       background-color: #ff7043;
-      color: white;
       border: none;
-      padding: 10px 20px;
-      border-radius: 25px;
-      cursor: pointer;
+      color: white;
+      padding: 10px;
+      width: calc(100% - 30px);
+      border-radius: 8px;
       font-weight: bold;
+      cursor: pointer;
     }
     .item button:hover {
-      background-color: #f4511e;
-    }
-    .cart {
-      padding: 20px 30px;
-      background-color: #fff0e0;
-    }
-    .cart h2 {
-      margin-top: 0;
-    }
-    .cart-items {
-      list-style: none;
-      padding: 0;
+      background-color: #e64a19;
     }
   </style>
-</head>
-<body>
-  <header>
-    <img src="https://cdn-icons-png.flaticon.com/512/3075/3075977.png" alt="FoodExpress Logo" class="logo">
-    <h1>FoodExpress</h1>
-    <p>Delicious Food, Delivered Fast</p>
-  </header>
-  <nav>
-    <a href="#menu">Menu</a>
-    <a href="#cart">Cart</a>
-    <a href="#about">About Us</a>
-    <a href="#contact">Contact</a>
-  </nav>
-  <section class="menu" id="menu">
-    <div class="item">
-      <img src="https://images.unsplash.com/photo-1594007654729-e6ba01c0f2af" alt="Pizza">
-      <h3>Pizza</h3>
-      <p>₹250</p>
-      <button onclick="addToCart('Pizza', 250)">Add to Cart</button>
-    </div>
-    <div class="item">
-      <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd" alt="Burger">
-      <h3>Burger</h3>
-      <p>₹120</p>
-      <button onclick="addToCart('Burger', 120)">Add to Cart</button>
-    </div>
-    <div class="item">
-      <img src="https://images.unsplash.com/photo-1627308595229-7830a5c91f9f" alt="Biryani">
-      <h3>Biryani</h3>
-      <p>₹180</p>
-      <button onclick="addToCart('Biryani', 180)">Add to Cart</button>
-    </div>
-    <div class="item">
-      <img src="https://images.unsplash.com/photo-1630384062540-36f875c6ef38" alt="Idli">
-      <h3>Idli & Sambar</h3>
-      <p>₹80</p>
-      <button onclick="addToCart('Idli & Sambar', 80)">Add to Cart</button>
-    </div>
-    <div class="item">
-      <img src="https://images.unsplash.com/photo-1668236549494-90dfdb94fcf1" alt="Dosa">
-      <h3>Masala Dosa</h3>
-      <p>₹90</p>
-      <button onclick="addToCart('Masala Dosa', 90)">Add to Cart</button>
-    </div>
-    <div class="item">
-      <img src="https://images.unsplash.com/photo-1603898072806-e3f3b49b70f8" alt="Samosa">
-      <h3>Samosa</h3>
-      <p>₹40</p>
-      <button onclick="addToCart('Samosa', 40)">Add to Cart</button>
-    </div>
-    <div class="item">
-      <img src="https://images.unsplash.com/photo-1596797038530-2c107229654b" alt="Pav Bhaji">
-      <h3>Pav Bhaji</h3>
-      <p>₹110</p>
-      <button onclick="addToCart('Pav Bhaji', 110)">Add to Cart</button>
-    </div>
-    <div class="item">
-      <img src="https://images.unsplash.com/photo-1657299172351-f2769c34d348" alt="Paneer">
-      <h3>Special Paneer Curry</h3>
-      <p>₹200</p>
-      <button onclick="addToCart('Special Paneer Curry', 200)">Add to Cart</button>
-    </div>
-  </section>
-  <section class="cart" id="cart">
-    <h2>Your Cart</h2>
-    <ul class="cart-items" id="cart-items"></ul>
-    <p><strong>Total: ₹<span id="total">0</span></strong></p>
-  </section>
-  <script>
-    let cart = [];
+  <div class="item" data-category="Veg">
+    <img src="https://images.unsplash.com/photo-1622442940054-b4e3e4dc6729" alt="Noodles">
+    <h3>Veg Noodles</h3>
+    <p>₹130</p>
+    <p class="rating">⭐ 4.2 • 30 mins</p>
+    <button onclick="addToCart('Veg Noodles', 130)">Add to Cart</button>
+  </div>
+  <div class="item" data-category="Non-Veg">
+    <img src="https://images.unsplash.com/photo-1555243896-c709bfa0b564" alt="Chicken Curry">
+    <h3>Chicken Curry</h3>
+    <p>₹220</p>
+    <p class="rating">⭐ 4.5 • 25 mins</p>
+    <button onclick="addToCart('Chicken Curry', 220)">Add to Cart</button>
+  </div>
+  <div class="item" data-category="Veg">
+    <img src="https://images.unsplash.com/photo-1613145993481-59de07b4d408" alt="Paneer Butter Masala">
+    <h3>Paneer Butter Masala</h3>
+    <p>₹200</p>
+    <p class="rating">⭐ 4.4 • 20 mins</p>
+    <button onclick="addToCart('Paneer Butter Masala', 200)">Add to Cart</button>
+  </div>
+  <div class="item" data-category="Veg">
+    <img src="https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2" alt="Veg Thali">
+    <h3>Veg Thali</h3>
+    <p>₹180</p>
+    <p class="rating">⭐ 4.1 • 35 mins</p>
+    <button onclick="addToCart('Veg Thali', 180)">Add to Cart</button>
+  </div>
+  <div class="item" data-category="Non-Veg">
+    <img src="https://images.unsplash.com/photo-1625215275461-bc7226f5fd94" alt="Fish Fry">
+    <h3>Fish Fry</h3>
+    <p>₹240</p>
+    <p class="rating">⭐ 4.6 • 30 mins</p>
+    <button onclick="addToCart('Fish Fry', 240)">Add to Cart</button>
+  </div>
+  <div class="item" data-category="Beverages">
+    <img src="https://images.unsplash.com/photo-1506089676908-3592f7389d4d" alt="Ice Cream">
+    <h3>Chocolate Ice Cream</h3>
+    <p>₹60</p>
+    <p class="rating">⭐ 4.6 • 10 mins</p>
+    <button onclick="addToCart('Chocolate Ice Cream', 60)">Add to Cart</button>
+  </div>
+  <div class="item" data-category="Beverages">
+    <img src="https://images.unsplash.com/photo-1529042410759-befb1204b468" alt="Cold Coffee">
+    <h3>Cold Coffee</h3>
+    <p>₹90</p>
+    <p class="rating">⭐ 4.3 • 12 mins</p>
+    <button onclick="addToCart('Cold Coffee', 90)">Add to Cart</button>
+  </div>
+  <div class="item" data-category="Veg">
+    <img src="https://images.unsplash.com/photo-1552332386-f8dd00dc2f85" alt="Pav Bhaji">
+    <h3>Pav Bhaji</h3>
+    <p>₹110</p>
+    <p class="rating">⭐ 4.5 • 20 mins</p>
+    <button onclick="addToCart('Pav Bhaji', 110)">Add to Cart</button>
+  </div>
+</section>
 
-    function addToCart(item, price) {
-      cart.push({ item, price });
-      updateCart();
-    }
+<!-- Cart Section -->
+<section class="cart" id="cart" style="padding: 30px; background-color: #fff0e0;">
+  <h2 style="margin-top: 0; font-family: 'Poppins', sans-serif; color: #ff7043;">Your Cart</h2>
+  <ul class="cart-items" id="cart-items" style="list-style: none; padding: 0; font-family: 'Poppins', sans-serif;"></ul>
+  <p style="font-weight: bold; font-size: 18px; font-family: 'Poppins', sans-serif;">Total: ₹<span id="total">0</span></p>
+</section>
 
-    function updateCart() {
-      const cartList = document.getElementById("cart-items");
-      const totalDisplay = document.getElementById("total");
-      cartList.innerHTML = "";
-      let total = 0;
+<script>
+let cart = [];
 
-      cart.forEach((entry) => {
-        const li = document.createElement("li");
-        li.textContent = `${entry.item} - ₹${entry.price}`;
-        cartList.appendChild(li);
-        total += entry.price;
-      });
+function addToCart(item, price) {
+  cart.push({ item, price });
+  updateCart();
+}
 
-      totalDisplay.textContent = total;
-    }
-  </script>
-</body>
-</html>
+function updateCart() {
+  const cartList = document.getElementById("cart-items");
+  const totalDisplay = document.getElementById("total");
+  cartList.innerHTML = "";
+  let total = 0;
+
+  cart.forEach((entry) => {
+    const li = document.createElement("li");
+    li.textContent = `${entry.item} - ₹${entry.price}`;
+    cartList.appendChild(li);
+    total += entry.price;
+  });
+
+  totalDisplay.textContent = total;
+}
+</script>
+
+<script>
+function filterMenu() {
+  const search = document.getElementById("searchBar").value.toLowerCase();
+  document.querySelectorAll(".item").forEach(card => {
+    const title = card.querySelector("h3").textContent.toLowerCase();
+    card.style.display = title.includes(search) ? "block" : "none";
+  });
+}
+</script>
