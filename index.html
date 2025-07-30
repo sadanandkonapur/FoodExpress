@@ -114,37 +114,3 @@
   <p style="font-weight: bold; font-size: 18px; font-family: 'Poppins', sans-serif;">Total: ₹<span id="total">0</span></p>
 </section>
 
-<script>
-let cart = [];
-
-function addToCart(item, price) {
-  cart.push({ item, price });
-  updateCart();
-}
-
-function updateCart() {
-  const cartList = document.getElementById("cart-items");
-  const totalDisplay = document.getElementById("total");
-  cartList.innerHTML = "";
-  let total = 0;
-
-  cart.forEach((entry) => {
-    const li = document.createElement("li");
-    li.textContent = `${entry.item} - ₹${entry.price}`;
-    cartList.appendChild(li);
-    total += entry.price;
-  });
-
-  totalDisplay.textContent = total;
-}
-</script>
-
-<script>
-function filterMenu() {
-  const search = document.getElementById("searchBar").value.toLowerCase();
-  document.querySelectorAll(".item").forEach(card => {
-    const title = card.querySelector("h3").textContent.toLowerCase();
-    card.style.display = title.includes(search) ? "block" : "none";
-  });
-}
-</script>
